@@ -7,6 +7,7 @@ export default function Home({ employees, setEmployees }) {
 
    const [isShowAddEmployeeForm, setIsShowAddEmployeeForm] = useState(false);
    const [employeeList, setEmployeeList] = useState(employees);
+   const [selectStatus, setSelectStatus] = useState("");
 
    useEffect(() => {
       console.log("Restored Employees in Home.jsx:", employeeList);
@@ -14,10 +15,13 @@ export default function Home({ employees, setEmployees }) {
 
    const showAddEmployeeButton = () => {
       setIsShowAddEmployeeForm(!isShowAddEmployeeForm)
+
+      //clear inputs of select and input
    }
 
    const filterEmployee = (e) => {
       const status = e.target.value;
+      setSelectStatus(status)
 
       let updatedEmployees = employeeList;
       if (status === "active") {
@@ -52,8 +56,9 @@ export default function Home({ employees, setEmployees }) {
    }
 
    const calculateTotalSalary = () => {
-      let sum = employeeList.map((emp) => emp.salary)
+      let sum = employeeList.map((emp) => parseInt(emp.salary))
          .reduce((a, b) => a + b, 0)
+      
       alert('Total sum :' + sum)
    }
 
@@ -64,10 +69,10 @@ export default function Home({ employees, setEmployees }) {
 
          <input type="text" placeholder="Search by name" onChange={searchEmployeeByName} />
 
-         <select name="status" onChange={filterEmployee}>
+         <select name="status" onChange={filterEmployee} id='status' value={selectStatus}>
             <option value="">Filter by status</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
+            <option value='active'>Active</option>
+            <option value='inactive'>Inactive</option>
          </select>
 
          <button onClick={showAddEmployeeButton}> Add Employee</button>
