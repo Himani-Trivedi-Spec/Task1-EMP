@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function EmployeeForm({ employees, setEmployees, setIsShowAddEmployeeForm }) {
+export default function EmployeeForm({ addNewEmployee, setIsShowAddEmployeeForm }) {
 
     const addEmployee = (e) => {
         e.preventDefault();
@@ -11,9 +11,9 @@ export default function EmployeeForm({ employees, setEmployees, setIsShowAddEmpl
             email: e.target.email.value,
             age: e.target.age.value,
             salary: e.target.salary.value,
-            isActive: true,
+            isActive: e.target.status.value === "active" ? true : false,
         };
-        setEmployees([...employees, newEmployee]);
+        addNewEmployee(newEmployee);
         setIsShowAddEmployeeForm(false);
     }
 
@@ -37,6 +37,12 @@ export default function EmployeeForm({ employees, setEmployees, setIsShowAddEmpl
 
                 <label htmlFor="salary">Salary:</label>
                 <input type="number" id="salary" name="salary" required />
+
+                <label htmlFor="salary">Status:</label>
+                <input type="radio" id="status-active" name="status" value="active" required />
+                <label htmlFor="status-active">Active</label>
+                <input type="radio" id="status-inactive" name="status" value="inactive" required />
+                <label htmlFor="status-inactive">Inactive</label>
 
                 <button type="submit">Add Employee</button>
             </form>

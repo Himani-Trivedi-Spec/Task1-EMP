@@ -8,10 +8,7 @@ import { Routes, Route } from 'react-router-dom'
 function App() {
 
   const [employees, setEmployees] = useState(employee.data);
-
-  console.log("Employees in App.jsx:", employees);
-
-
+  
   return (
     <Routes>
       <Route path="/" element={<Home employees={employees} setEmployees={setEmployees} />}>

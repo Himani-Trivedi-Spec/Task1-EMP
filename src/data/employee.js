@@ -24,7 +24,7 @@ export const employee = {
             email: "john.doe@example.com",
             age: 28,
             salary: 50000,
-            isActive: true,
+            isActive: false,
         },
         {
             id: 4,

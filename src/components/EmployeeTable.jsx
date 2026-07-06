@@ -1,6 +1,5 @@
-import { useState } from 'react';
 
-export default function EmployeeTable({ employees, setEmployees }) {
+export default function EmployeeTable({ employees, deleteEmployee }) {
 
     return (
         <div className="employee-table">
@@ -25,10 +24,7 @@ export default function EmployeeTable({ employees, setEmployees }) {
                             <td>{employee.salary}</td>
                             <td>{employee.isActive ? 'Active' : 'Inactive'}</td>
                             <td><button onClick={() => {
-                                const updatedEmployess = employees.filter(
-                                    (emp) => emp.id !== employee.id
-                                )
-                                setEmployees(updatedEmployess);
+                                deleteEmployee(employee.id);
                             }}>Delete</button></td>
                         </tr>
                     ))}
