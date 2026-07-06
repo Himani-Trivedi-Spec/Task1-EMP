@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
 import EmployeeTable from './EmployeeTable'
 import EmployeeForm from './EmployeeForm'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Home({ employees, setEmployees }) {
 
