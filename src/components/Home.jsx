@@ -47,12 +47,14 @@ export default function Home({ employees, setEmployees }) {
 
    const searchEmployeeByName = (e) => {
       const searchTerm = e.target.value.toLowerCase();
-      
-      let updatedEmployees = employeeList.filter((emp) => {
-         emp.name.includes(searchTerm)
-      })
-
+      let updatedEmployees = employeeList.filter((emp) => emp.name.toLowerCase().includes(searchTerm))
       setEmployees(updatedEmployees);
+   }
+
+   const calculateTotalSalary = () => {
+      let sum = employeeList.map((emp) => emp.salary)
+         .reduce((a, b) => a + b, 0)
+      alert('Total sum :' + sum)
    }
 
    return (
@@ -69,6 +71,7 @@ export default function Home({ employees, setEmployees }) {
          </select>
 
          <button onClick={showAddEmployeeButton}> Add Employee</button>
+         <button onClick={calculateTotalSalary}> Total Salary</button>
 
          {isShowAddEmployeeForm &&
             <EmployeeForm addNewEmployee={addNewEmployee}
