@@ -13,28 +13,34 @@ export default function Home({ employees, setEmployees }) {
       console.log("Restored Employees in Home.jsx:", employeeList);
    }, [employees]);
 
-   const showAddEmployeeButton = () => {
-      setIsShowAddEmployeeForm(!isShowAddEmployeeForm)
-      setSelectStatus('')
-      setSearchValue('')
-      setEmployees(employeeList)
+   const applyFilters = (search , status ) => {
+      let result = employeeList
 
-      //clear inputs of select and input
+      if (status === "active") {
+         result = result.filter(employee => employee.isActive === true);
+      }
+      else if (status === "inactive") {
+         result = result.filter(employee => employee.isActive === false);
+      }
+
+      const s = (search || '').trim().toLowerCase()
+      if (s) result = result.filter(employee => employee.name.toLowerCase().includes(s))
+
+      setEmployees(result)
+
+      console.log(result, status, search)
+   }
+
+   const searchEmployeeByName = (e) => {
+      const search = e.target.value.toLowerCase()
+      setSearchValue(search)
+      applyFilters(search, selectStatus)
    }
 
    const filterEmployee = (e) => {
       const status = e.target.value;
       setSelectStatus(status)
-
-      let updatedEmployees = employeeList;
-      if (status === "active") {
-         updatedEmployees = employeeList.filter(employee => employee.isActive === true);
-      }
-      else if (status === "inactive") {
-         updatedEmployees = employeeList.filter(employee => employee.isActive === false);
-      }
-
-      setEmployees(updatedEmployees);
+      applyFilters(searchValue, status)
    }
 
    const deleteEmployeeById = (id) => {
@@ -52,11 +58,12 @@ export default function Home({ employees, setEmployees }) {
       setEmployeeList(updatedList)
    }
 
-   const searchEmployeeByName = (e) => {
-      const searchTerm = e.target.value.toLowerCase();
-      setSearchValue(searchTerm)
-      let updatedEmployees = employees.filter((emp) => emp.name.toLowerCase().includes(searchTerm))
-      setEmployees(updatedEmployees);
+
+   const showAddEmployeeButton = () => {
+      setIsShowAddEmployeeForm(!isShowAddEmployeeForm)
+      setSelectStatus('')
+      setSearchValue('')
+      setEmployees(employeeList)
    }
 
    const calculateTotalSalary = () => {
@@ -72,7 +79,7 @@ export default function Home({ employees, setEmployees }) {
          <p>This is a simple employee management system built with React.</p>
 
          <input type="text" placeholder="Search by name" onChange={searchEmployeeByName} value={searchValue}
-            disabled = {isShowAddEmployeeForm}
+            disabled={isShowAddEmployeeForm}
             id='search'
             name='search'
          />
